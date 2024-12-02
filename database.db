@@ -1,0 +1,19 @@
+import mysql.connector
+
+def execute_query(query, params=None):
+    connection = mysql.connector.connect(
+        host='localhost',
+        user='root',  # Domyślny użytkownik w XAMPP
+        password='',  # Domyślne hasło w XAMPP (puste)
+        database='bsui_lab06'
+    )
+    cursor = connection.cursor(dictionary=True)
+    if params:
+        cursor.execute(query, params)
+    else:
+        cursor.execute(query)
+    result = cursor.fetchall()
+    connection.commit()
+    cursor.close()
+    connection.close()
+    return result
